@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080609">
+<title>Bilal × Gigi — One Beautiful Year</title>
+<style>
+:root{
+  --bg:#080609; --card:#111015; --card2:#17131a; --red:#9f1835;
+  --red2:#d92f55; --gold:#d6ad63; --text:#fff7f2; --muted:#b8aeb3;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:
+  radial-gradient(circle at 15% 10%,rgba(159,24,53,.20),transparent 30%),
+  radial-gradient(circle at 90% 75%,rgba(214,173,99,.09),transparent 28%),var(--bg);
+  color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;
+  overflow-x:hidden;
+}
+button,input{font:inherit}
+.hidden{display:none!important}
+
+/* Password */
+#lock{
+  position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:24px;
+  background:
+    linear-gradient(rgba(8,6,9,.76),rgba(8,6,9,.92)),
+    radial-gradient(circle at center,rgba(159,24,53,.24),transparent 50%);
+  backdrop-filter:blur(18px);
+}
+.lock-card{
+  width:min(430px,100%);padding:38px 28px;border:1px solid rgba(214,173,99,.25);
+  border-radius:30px;background:rgba(17,16,21,.88);box-shadow:0 30px 100px rgba(0,0,0,.55);
+  text-align:center;animation:rise .8s ease both;
+}
+.heart{font-size:42px;filter:drop-shadow(0 0 18px rgba(217,47,85,.5))}
+.kicker{color:var(--gold);letter-spacing:4px;font-size:11px;text-transform:uppercase}
+h1{margin:10px 0 8px;font-size:clamp(32px,8vw,54px);line-height:1.05}
+.lock-card p{color:var(--muted);line-height:1.8}
+#pass{width:100%;padding:15px 18px;border-radius:16px;border:1px solid #332c34;background:#0c0a0e;color:#fff;outline:none;text-align:center}
+#pass:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(214,173,99,.1)}
+.enter{margin-top:12px;width:100%;padding:15px;border:0;border-radius:16px;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;font-weight:800;cursor:pointer;box-shadow:0 12px 30px rgba(159,24,53,.25)}
+.error{height:20px;color:#ff7895;font-size:13px;margin-top:8px}
+
+/* Site */
+#site{opacity:0;transition:opacity .8s ease}
+#site.show{opacity:1}
+nav{position:fixed;top:0;left:0;right:0;z-index:20;padding:16px 22px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(rgba(8,6,9,.8),transparent);backdrop-filter:blur(7px)}
+.logo{font-weight:900;letter-spacing:2px}.logo span{color:var(--gold)}
+.music-btn{border:1px solid rgba(214,173,99,.35);background:rgba(17,16,21,.7);color:#fff;border-radius:999px;padding:9px 14px;cursor:pointer}
+.music-btn small{color:var(--gold)}
+
+.hero{min-height:100svh;display:grid;place-items:center;padding:110px 20px 70px;position:relative}
+.hero-inner{text-align:center;max-width:850px}
+.eyebrow{color:var(--gold);letter-spacing:5px;font-size:12px;text-transform:uppercase}
+.hero h2{font-size:clamp(48px,13vw,110px);margin:18px 0 8px;line-height:.95;letter-spacing:-4px}
+.hero h2 span{color:var(--red2);text-shadow:0 0 45px rgba(217,47,85,.28)}
+.subtitle{color:var(--muted);font-size:clamp(16px,3vw,21px);line-height:1.8}
+.date{margin:28px auto 0;width:max-content;max-width:100%;padding:10px 18px;border:1px solid rgba(214,173,99,.35);border-radius:999px;color:var(--gold)}
+.scroll{margin-top:50px;color:#8e858a;font-size:12px;letter-spacing:2px}
+.scroll::after{content:"↓";display:block;font-size:25px;color:var(--gold);margin-top:6px;animation:bob 1.6s infinite}
+
+.section{padding:90px 20px;max-width:1120px;margin:auto}
+.section-head{text-align:center;margin-bottom:35px}
+.section-head .kicker{font-size:10px}
+.section h3{font-size:clamp(30px,6vw,52px);margin:8px 0}
+.section-head p{color:var(--muted);line-height:1.8}
+
+.count-card{
+  background:linear-gradient(145deg,rgba(23,19,26,.95),rgba(11,9,13,.95));
+  border:1px solid rgba(214,173,99,.18);border-radius:30px;padding:28px;
+  box-shadow:0 25px 70px rgba(0,0,0,.25);
+}
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.unit{padding:18px 8px;text-align:center;border-radius:20px;background:rgba(255,255,255,.035)}
+.unit strong{display:block;font-size:clamp(27px,7vw,48px);font-variant-numeric:tabular-nums}
+.unit span{color:var(--muted);font-size:11px}
+
+.letter{
+  position:relative;overflow:hidden;padding:38px 26px;border-radius:30px;
+  background:linear-gradient(145deg,#171118,#0e0c10);border:1px solid rgba(217,47,85,.18);
+}
+.letter:before{content:"❤";position:absolute;left:-10px;bottom:-35px;font-size:180px;color:rgba(159,24,53,.06);transform:rotate(-15deg)}
+.letter .to{color:var(--gold);font-size:13px;letter-spacing:2px}
+.letter p{position:relative;font-size:clamp(18px,4vw,25px);line-height:2.05;margin:18px 0 0}
+.signature{position:relative;margin-top:25px;color:var(--gold);font-weight:800}
+
+.gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.photo{position:relative;overflow:hidden;border-radius:24px;background:#151217;border:1px solid rgba(255,255,255,.07);min-height:240px}
+.photo:nth-child(1),.photo:nth-child(4){grid-column:span 7}
+.photo:nth-child(2),.photo:nth-child(3),.photo:nth-child(5){grid-column:span 5}
+.photo img{width:100%;height:100%;min-height:280px;object-fit:cover;display:block;transition:transform .7s ease;filter:saturate(.92)}
+.photo:hover img{transform:scale(1.045)}
+.photo:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 60%,rgba(0,0,0,.35));pointer-events:none}
+
+.final{
+  min-height:75svh;display:grid;place-items:center;text-align:center;padding:90px 20px;
+}
+.final-card{max-width:760px}
+.final-card .big-heart{font-size:65px;animation:pulse 1.8s infinite}
+.final h3{font-size:clamp(40px,9vw,80px);margin:12px 0}
+.final p{color:var(--muted);font-size:18px;line-height:1.9}
+.secret{margin-top:24px;padding:14px 25px;border-radius:999px;border:1px solid rgba(214,173,99,.4);background:transparent;color:var(--gold);cursor:pointer}
+.secret-msg{margin-top:25px;display:none;color:#fff;font-size:20px;line-height:1.8}
+.secret-msg.show{display:block;animation:rise .7s ease}
+
+footer{text-align:center;padding:30px;color:#6f676c;font-size:12px}
+#hearts{position:fixed;inset:0;pointer-events:none;z-index:30;overflow:hidden}
+.float-heart{position:absolute;bottom:-30px;animation:float 5s linear forwards;opacity:.75}
+
+@keyframes rise{from{opacity:0;transform:translateY(20px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes bob{50%{transform:translateY(8px)}}
+@keyframes pulse{50%{transform:scale(1.1)}}
+@keyframes float{to{transform:translateY(-110vh) rotate(25deg);opacity:0}}
+@media(max-width:650px){
+  .countdown{grid-template-columns:repeat(2,1fr)}
+  .gallery{display:grid;grid-template-columns:1fr}
+  .photo,.photo:nth-child(n){grid-column:span 1}
+  .photo img{min-height:390px}
+  .section{padding:70px 16px}
+}
+</style>
+</head>
+<body>
+
+<div id="lock">
+  <div class="lock-card">
+    <div class="heart">♥</div>
+    <div class="kicker">A private place for two</div>
+    <h1>Bilal <span style="color:#d6ad63">×</span> Gigi</h1>
+    <p>الموقع ده معمول مخصوص لجيجي ❤️<br>اكتبي الباسورد علشان تدخلي.</p>
+    <input id="pass" type="password" placeholder="Password" autocomplete="off">
+    <button class="enter" onclick="unlock()">دخول ♥</button>
+    <div id="error" class="error"></div>
+  </div>
+</div>
+
+<div id="site">
+  <nav>
+    <div class="logo">BILAL <span>×</span> GIGI</div>
+    <button class="music-btn" onclick="toggleMusic()">♫ <small id="musicText">Music</small></button>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="eyebrow">One beautiful year</div>
+        <h2>Bilal <span>×</span> Gigi</h2>
+        <div class="subtitle">سنة كاملة من الحكاية... ولسه الحكاية بتبدأ ❤️</div>
+        <div class="date">21 • 08 • 2026</div>
+        <div class="scroll">SCROLL TO OUR STORY</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div class="kicker">The moment</div>
+        <h3>Our First Year</h3>
+        <p>كل ثانية بتعدّي بتخلي اليوم ده أقرب.</p>
+      </div>
+      <div class="count-card">
+        <div class="countdown">
+          <div class="unit"><strong id="days">0</strong><span>Days</span></div>
+          <div class="unit"><strong id="hours">0</strong><span>Hours</span></div>
+          <div class="unit"><strong id="mins">0</strong><span>Minutes</span></div>
+          <div class="unit"><strong id="secs">0</strong><span>Seconds</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div class="kicker">A letter for you</div>
+        <h3>To My Gigi 🤍</h3>
+      </div>
+      <div class="letter">
+        <div class="to">من بلال إلى بنوتي</div>
+        <p>
+          بنوتي نن عيني، تمينا سنة ينن عيني سوا،
+          وي كانت سنة فيها بلوكات كتير، ومش عايزة أكمل معاك كتير،
+          وحاجات كتير جدًا، وي إحنا كملناها سوا ينن عيني.
+          وي كنا قد أي حاجة وقفت قدامنا.
+          وي دي أول سنة ومش آخر سنة ينن عيني.
+          وبنتي وأمي وصحبتي وكل حاجة ليا،
+          بحبك ينن عيني 😘🫂
+        </p>
+        <div class="signature">— بلال</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div class="kicker">Little moments</div>
+        <h3>Us, in frames.</h3>
+        <p>خمس صور... بس وراهم ذكريات كتير جدًا.</p>
+      </div>
+      <div class="gallery">
+        <div class="photo"><img src="assets/photo1.jpeg" alt="Bilal and Gigi"></div>
+        <div class="photo"><img src="assets/photo2.jpeg" alt="Bilal and Gigi"></div>
+        <div class="photo"><img src="assets/photo3.jpeg" alt="Bilal and Gigi"></div>
+        <div class="photo"><img src="assets/photo4.jpeg" alt="Bilal and Gigi"></div>
+        <div class="photo"><img src="assets/photo5.jpeg" alt="Bilal and Gigi"></div>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="final-card">
+        <div class="big-heart">♥</div>
+        <div class="kicker">And this is not the end</div>
+        <h3>لسه في حكاية</h3>
+        <p>دي كانت أول سنة... ومش آخر سنة.<br>كل سنة وإنتِ معايا يا جيجي الريح 🤍</p>
+        <button class="secret" onclick="showSecret()">اضغطي هنا ❤️</button>
+        <div id="secretMsg" class="secret-msg">أهو ده الجزء اللي مفيش له كلام كفاية... <br>بحبك يا جيجي 😘🫂</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>Made with love by Bilal • 21.08.2026</footer>
+</div>
+
+<div id="hearts"></div>
+
+<!-- Put your legally obtained music file here and name it song.mp3 -->
+<audio id="song" loop preload="none">
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const target = new Date("2026-08-21T00:00:00+03:00");
+
+function unlock(){
+  const value=document.getElementById("pass").value.trim().toLowerCase();
+  if(value==="love"){
+    document.getElementById("lock").classList.add("hidden");
+    const site=document.getElementById("site");
+    site.classList.add("show");
+    document.body.style.overflowX="hidden";
+    spawnHearts(14);
+  }else{
+    document.getElementById("error").textContent="الباسورد مش صح ❤️";
+    document.getElementById("pass").animate([
+      {transform:"translateX(0)"},{transform:"translateX(-7px)"},{transform:"translateX(7px)"},{transform:"translateX(0)"}
+    ],250);
+  }
+}
+document.getElementById("pass").addEventListener("keydown",e=>{if(e.key==="Enter")unlock()});
+
+function updateCountdown(){
+  const diff=Math.max(0,target-new Date());
+  const d=Math.floor(diff/86400000);
+  const h=Math.floor(diff%86400000/3600000);
+  const m=Math.floor(diff%3600000/60000);
+  const s=Math.floor(diff%60000/1000);
+  document.getElementById("days").textContent=d;
+  document.getElementById("hours").textContent=String(h).padStart(2,"0");
+  document.getElementById("mins").textContent=String(m).padStart(2,"0");
+  document.getElementById("secs").textContent=String(s).padStart(2,"0");
+}
+updateCountdown();setInterval(updateCountdown,1000);
+
+const audio=document.getElementById("song");
+function toggleMusic(){
+  if(!audio.getAttribute("src") && !audio.querySelector("source")?.getAttribute("src")){
+    alert("حط ملف الأغنية باسم song.mp3 جنب index.html، وبعدها دوس Music.");
+    return;
+  }
+  if(audio.paused){
+    audio.play().then(()=>document.getElementById("musicText").textContent="Pause").catch(()=>alert("المتصفح منع التشغيل التلقائي. دوس Music مرة تانية."));
+  }else{
+    audio.pause();document.getElementById("musicText").textContent="Music";
+  }
+}
+function showSecret(){
+  document.getElementById("secretMsg").classList.add("show");
+  spawnHearts(22);
+}
+function spawnHearts(n){
+  const box=document.getElementById("hearts");
+  for(let i=0;i<n;i++){
+    const el=document.createElement("div");
+    el.className="float-heart";el.textContent=["♥","❤","♡"][Math.floor(Math.random()*3)];
+    el.style.left=Math.random()*100+"%";
+    el.style.fontSize=(12+Math.random()*20)+"px";
+    el.style.animationDelay=(Math.random()*1.5)+"s";
+    box.appendChild(el);
+    setTimeout(()=>el.remove(),6500);
+  }
+}
+</script>
+</body>
+</html>
